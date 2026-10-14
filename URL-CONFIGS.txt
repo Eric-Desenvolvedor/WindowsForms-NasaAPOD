@@ -1,4 +1,3 @@
-APOD NASA
+HEROIS
 
-chave da API: jQi1nEZadOfGPY30eZbPyPwhLhfO0l50R2HDsUrI
-Acesso: https://api.nasa.gov/
+chave: e67c2cb4edad8d635496d3e156a9cf83
