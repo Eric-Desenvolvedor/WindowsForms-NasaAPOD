@@ -41,11 +41,13 @@
             label2 = new Label();
             label1 = new Label();
             personagemSelecionado = new Label();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)listPersonagens).BeginInit();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)imagem).BeginInit();
             tableLayoutPanel3.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // listPersonagens
@@ -54,11 +56,11 @@
             listPersonagens.AllowUserToResizeColumns = false;
             listPersonagens.AllowUserToResizeRows = false;
             listPersonagens.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            listPersonagens.Location = new Point(234, 15);
+            listPersonagens.Location = new Point(236, 19);
             listPersonagens.MultiSelect = false;
             listPersonagens.Name = "listPersonagens";
             listPersonagens.ReadOnly = true;
-            listPersonagens.Size = new Size(429, 426);
+            listPersonagens.Size = new Size(429, 418);
             listPersonagens.TabIndex = 0;
             listPersonagens.CellClick += listPersonagens_CellClick;
             listPersonagens.CellDoubleClick += listPersonagens_CellDoubleClick;
@@ -70,7 +72,7 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.0232544F));
             tableLayoutPanel1.Controls.Add(areaPesquisa, 0, 0);
             tableLayoutPanel1.Controls.Add(Pesquisar, 1, 0);
-            tableLayoutPanel1.Location = new Point(12, 12);
+            tableLayoutPanel1.Location = new Point(3, 19);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
@@ -112,7 +114,7 @@
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 68.83721F));
             tableLayoutPanel2.Controls.Add(label, 0, 0);
             tableLayoutPanel2.Controls.Add(selecionado, 1, 0);
-            tableLayoutPanel2.Location = new Point(12, 48);
+            tableLayoutPanel2.Location = new Point(3, 55);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
@@ -134,7 +136,7 @@
             imagem.BackgroundImage = Properties.Resources.iconePesquisa;
             imagem.BackgroundImageLayout = ImageLayout.Zoom;
             imagem.BorderStyle = BorderStyle.FixedSingle;
-            imagem.Location = new Point(12, 90);
+            imagem.Location = new Point(3, 97);
             imagem.Name = "imagem";
             imagem.Size = new Size(212, 269);
             imagem.TabIndex = 3;
@@ -149,7 +151,7 @@
             tableLayoutPanel3.Controls.Add(label2, 0, 1);
             tableLayoutPanel3.Controls.Add(label1, 0, 0);
             tableLayoutPanel3.Controls.Add(personagemSelecionado, 1, 0);
-            tableLayoutPanel3.Location = new Point(12, 374);
+            tableLayoutPanel3.Location = new Point(3, 381);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 2;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
@@ -193,16 +195,24 @@
             personagemSelecionado.TabIndex = 3;
             personagemSelecionado.Text = "Nenhum personagem";
             // 
+            // panel1
+            // 
+            panel1.Controls.Add(tableLayoutPanel1);
+            panel1.Controls.Add(tableLayoutPanel3);
+            panel1.Controls.Add(listPersonagens);
+            panel1.Controls.Add(imagem);
+            panel1.Controls.Add(tableLayoutPanel2);
+            panel1.Location = new Point(0, -3);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(706, 451);
+            panel1.TabIndex = 5;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(675, 449);
-            Controls.Add(tableLayoutPanel3);
-            Controls.Add(imagem);
-            Controls.Add(tableLayoutPanel2);
-            Controls.Add(tableLayoutPanel1);
-            Controls.Add(listPersonagens);
+            ClientSize = new Size(724, 449);
+            Controls.Add(panel1);
             Name = "Form1";
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)listPersonagens).EndInit();
@@ -213,6 +223,7 @@
             ((System.ComponentModel.ISupportInitialize)imagem).EndInit();
             tableLayoutPanel3.ResumeLayout(false);
             tableLayoutPanel3.PerformLayout();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -231,5 +242,6 @@
         private Label personagemSelecionado;
         private Label nomePersonagem;
         private Label label2;
+        private Panel panel1;
     }
 }

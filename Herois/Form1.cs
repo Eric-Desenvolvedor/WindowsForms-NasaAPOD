@@ -14,12 +14,18 @@ namespace Herois
         }
         private void ConfigurarGrid()
         {
+            organizar();
             listPersonagens.Columns.Clear();
             listPersonagens.Columns.Add("colId", "id");
             listPersonagens.Columns.Add("cols", "nome personagem");
             listPersonagens.Columns.Add("cols", "pulicado");
             listPersonagens.Columns.Add("cols", "nome completo");
             listPersonagens.Columns["cols"]?.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+        }
+
+        private void organizar()
+        {
+            panel1.Anchor = AnchorStyles.None;
         }
 
         private async void Pesquisar_Click(object sender, EventArgs e)
@@ -100,7 +106,17 @@ namespace Herois
 
         private void listPersonagens_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow linhaAtual = listPersonagens.Rows[e.RowIndex];
+                string idSelecionado = linhaAtual.Cells["colId"].Value.ToString();
 
+                if (!string.IsNullOrEmpty(idSelecionado))
+                {
+                    Form2 telaDetalhes = new Form2(idSelecionado);
+                    telaDetalhes.Show();
+                }
+            }
         }
     }
 }
