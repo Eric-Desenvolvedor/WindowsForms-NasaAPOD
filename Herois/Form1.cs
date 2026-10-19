@@ -17,10 +17,13 @@ namespace Herois
             organizar();
             listPersonagens.Columns.Clear();
             listPersonagens.Columns.Add("colId", "id");
-            listPersonagens.Columns.Add("cols", "nome personagem");
-            listPersonagens.Columns.Add("cols", "pulicado");
-            listPersonagens.Columns.Add("cols", "nome completo");
-            listPersonagens.Columns["cols"]?.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            listPersonagens.Columns.Add("colsNome", "nome personagem");
+            listPersonagens.Columns.Add("colsPub", "pulicado");
+            listPersonagens.Columns.Add("colsNomeC", "nome completo");
+            listPersonagens.Columns["colId"]?.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            listPersonagens.Columns["colsNome"]?.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            listPersonagens.Columns["colsPub"]?.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            listPersonagens.Columns["colsNomeC"]?.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
 
         private void organizar()
@@ -50,58 +53,71 @@ namespace Herois
 
         private async Task requisicao(string inputPesquisa)
         {
-            string url = $"https://www.superheroapi.com/api.php/e67c2cb4edad8d635496d3e156a9cf83/search/{inputPesquisa}";
-
-            string resposta = await cliente.GetStringAsync(url);
-            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-
-            var dadosApi = JsonSerializer.Deserialize<SuperHeroApiResponse>(resposta, options);
-            var personagens = dadosApi?.results;
-
-            listPersonagens.Rows.Clear();
-            foreach (var personagem in personagens)
+            try
             {
-                var id = personagem.id;
-                var nome = personagem.name;
-                var publicado = personagem.biography.publisher;
-                var nomeCompleto = personagem.biography.FullName;
-                if (publicado == null || publicado == "" || publicado == "null")
-                {
-                    publicado = "Não encontrado";
-                }
-                if (nomeCompleto == null || nomeCompleto == "" || nomeCompleto == "null")
-                {
-                    nomeCompleto = "Não encontrado";
-                }
+                string url = $"https://www.superheroapi.com/api.php/e67c2cb4edad8d635496d3e156a9cf83/search/{inputPesquisa}";
 
-                listPersonagens.Rows.Add(id, nome, publicado, nomeCompleto);
+                string resposta = await cliente.GetStringAsync(url);
+
+                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+
+                var dadosApi = JsonSerializer.Deserialize<SuperHeroApiResponse>(resposta, options);
+                var personagens = dadosApi?.results;
+
+                listPersonagens.Rows.Clear();
+                foreach (var personagem in personagens)
+                {
+                    var id = personagem.id;
+                    var nome = personagem.name;
+                    var publicado = personagem.biography.publisher;
+                    var nomeCompleto = personagem.biography.FullName;
+                    if (publicado == null || publicado == "" || publicado == "null")
+                    {
+                        publicado = "Não encontrado";
+                    }
+                    if (nomeCompleto == null || nomeCompleto == "" || nomeCompleto == "null")
+                    {
+                        nomeCompleto = "Não encontrado";
+                    }
+
+                    listPersonagens.Rows.Add(id, nome, publicado, nomeCompleto);
+                }
             }
-
+            catch (Exception erro)
+            {
+                MessageBox.Show($"Erro: {erro.Message}");
+            }
         }
 
         private async void listPersonagens_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
-
-            string? idPersonagem = listPersonagens.Rows[e.RowIndex].Cells["colId"].Value?.ToString();
-            string url = $"https://www.superheroapi.com/api.php/e67c2cb4edad8d635496d3e156a9cf83/{idPersonagem}";
-
-            var resposta = await cliente.GetStreamAsync(url);
-            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-
-            var personagem = JsonSerializer.Deserialize<DTOpersonagem>(resposta, options);
-            
-            if (personagem != null && !string.IsNullOrEmpty(personagem.image?.url))
+            try
             {
-                personagemSelecionado.Text = personagem.name;
-                nomePersonagem.Text = personagem.biography.FullName;
-                imagem.Load(personagem.image.url);
-                imagem.SizeMode = PictureBoxSizeMode.Zoom;
+                string? idPersonagem = listPersonagens.Rows[e.RowIndex].Cells["colId"].Value?.ToString();
+                string url = $"https://www.superheroapi.com/api.php/e67c2cb4edad8d635496d3e156a9cf83/{idPersonagem}";
+
+                var resposta = await cliente.GetStreamAsync(url);
+                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+
+                var personagem = JsonSerializer.Deserialize<DTOpersonagem>(resposta, options);
+
+                if (personagem != null && !string.IsNullOrEmpty(personagem.image?.url))
+                {
+                    personagemSelecionado.Text = personagem.name;
+                    nomePersonagem.Text = personagem.biography.FullName;
+                    imagem.Load(personagem.image.url);
+                    imagem.SizeMode = PictureBoxSizeMode.Zoom;
+                }
+                else
+                {
+                    MessageBox.Show("Não foi possível carregar a imagem do personagem.");
+                }
             }
-            else
+            catch (Exception erro)
             {
-                MessageBox.Show("Não foi possível carregar a imagem do personagem.");
-            }
+                MessageBox.Show($"Erro: {erro.Message}");
+            }            
         }
 
         private void listPersonagens_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

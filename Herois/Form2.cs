@@ -5,8 +5,9 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
-using System.Windows.Forms;
 using System.Text.Json;
+using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Herois
 {
@@ -30,27 +31,37 @@ namespace Herois
 
         public async Task requisicao(string id)
         {
-            string url = $"https://www.superheroapi.com/api.php/e67c2cb4edad8d635496d3e156a9cf83/{id}";
-            string resposta = await cliente.GetStringAsync(url);
-            var heroi = JsonSerializer.Deserialize<dadosPersonagem>(resposta);
+            try
+            {
+                string url = $"https://www.superheroapi.com/api.php/e67c2cb4edad8d635496d3e156a9cf83/{id}";
+                string resposta = await cliente.GetStringAsync(url);
+                var heroi = JsonSerializer.Deserialize<dadosPersonagem>(resposta);
 
-            exibirNome.Text = heroi?.name;
-            exibirSexo.Text = heroi?.appearance.gender;
-            exibirPoder.Text = heroi?.powerstats.power;
-            exibirDurabilidade.Text = heroi?.powerstats.durability;
-            exibirForca.Text = heroi?.powerstats.strength;
-            exibirCombate.Text = heroi?.powerstats.combat;
-            exibirVelocidade.Text = heroi?.powerstats.speed;
-            exibirInteligencia.Text = heroi?.powerstats.intelligence;
-            exibirNomeCompleto.Text = heroi?.biography.FullName;
-            exibirPublicado.Text = heroi?.biography.publisher;
-            exibirPeso.Text = heroi?.appearance.weight[1];
-            exibirImagem.Load(heroi.image.url);
+                exibirNome.Text = heroi?.name;
+                exibirSexo.Text = heroi?.appearance.gender;
+                exibirPoder.Text = heroi?.powerstats.power;
+                exibirDurabilidade.Text = heroi?.powerstats.durability;
+                exibirForca.Text = heroi?.powerstats.strength;
+                exibirCombate.Text = heroi?.powerstats.combat;
+                exibirVelocidade.Text = heroi?.powerstats.speed;
+                exibirInteligencia.Text = heroi?.powerstats.intelligence;
+                exibirNomeCompleto.Text = heroi?.biography.FullName;
+                exibirPublicado.Text = heroi?.biography.publisher;
+                exibirPeso.Text = heroi?.appearance.weight[1];
+                exibirImagem.Load(heroi.image.url);
+                exibirImagem.SizeMode = PictureBoxSizeMode.Zoom;
+
+            }
+            catch (Exception erro)
+            {
+                MessageBox.Show($"Erro: {erro.Message}");
+            }
         }
 
         private async void Form2_Load(object sender, EventArgs e)
         {
             await requisicao(idHeroi);
+
         }
     }
 }

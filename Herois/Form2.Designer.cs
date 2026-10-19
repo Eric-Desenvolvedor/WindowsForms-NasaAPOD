@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             exibirImagem = new PictureBox();
             flowLayoutPanel1 = new FlowLayoutPanel();
             tableLayoutPanel1 = new TableLayoutPanel();
@@ -62,7 +63,7 @@
             // 
             // exibirImagem
             // 
-            exibirImagem.BackgroundImage = Properties.Resources.iconePesquisa;
+            exibirImagem.BackgroundImage = (Image)resources.GetObject("exibirImagem.BackgroundImage");
             exibirImagem.BackgroundImageLayout = ImageLayout.Zoom;
             exibirImagem.BorderStyle = BorderStyle.FixedSingle;
             exibirImagem.Location = new Point(3, 3);
@@ -351,9 +352,9 @@
             flowLayoutPanel2.BackColor = Color.White;
             flowLayoutPanel2.Controls.Add(exibirImagem);
             flowLayoutPanel2.Controls.Add(flowLayoutPanel1);
-            flowLayoutPanel2.Location = new Point(37, 12);
+            flowLayoutPanel2.Location = new Point(12, 12);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(672, 433);
+            flowLayoutPanel2.Size = new Size(634, 433);
             flowLayoutPanel2.TabIndex = 6;
             // 
             // Form2
@@ -361,7 +362,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(711, 511);
+            ClientSize = new Size(666, 459);
             Controls.Add(flowLayoutPanel2);
             Name = "Form2";
             Text = "Form2";

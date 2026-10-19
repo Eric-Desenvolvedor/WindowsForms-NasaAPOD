@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             listPersonagens = new DataGridView();
             tableLayoutPanel1 = new TableLayoutPanel();
             areaPesquisa = new TextBox();
@@ -133,7 +134,7 @@
             // 
             // imagem
             // 
-            imagem.BackgroundImage = Properties.Resources.iconePesquisa;
+            imagem.BackgroundImage = (Image)resources.GetObject("imagem.BackgroundImage");
             imagem.BackgroundImageLayout = ImageLayout.Zoom;
             imagem.BorderStyle = BorderStyle.FixedSingle;
             imagem.Location = new Point(3, 97);
@@ -202,16 +203,16 @@
             panel1.Controls.Add(listPersonagens);
             panel1.Controls.Add(imagem);
             panel1.Controls.Add(tableLayoutPanel2);
-            panel1.Location = new Point(0, -3);
+            panel1.Location = new Point(2, 1);
             panel1.Name = "panel1";
-            panel1.Size = new Size(706, 451);
+            panel1.Size = new Size(675, 451);
             panel1.TabIndex = 5;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(724, 449);
+            ClientSize = new Size(669, 449);
             Controls.Add(panel1);
             Name = "Form1";
             Text = "Form1";
